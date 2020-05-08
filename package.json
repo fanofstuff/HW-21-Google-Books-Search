@@ -13,19 +13,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jonathanjwatson/MERN-start.git"
+    "url": "git+https://github.com/fanofstuff/HW-21-Google-Books-Search.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jonathanjwatson/MERN-start/issues"
+    "url": "https://github.com/fanofstuff/HW-21-Google-Books-Search/issues"
   },
-  "homepage": "https://github.com/jonathanjwatson/MERN-start#readme",
+  "homepage": "https://github.com/fanofstuff/HW-21-Google-Books-Search#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.9.11"
+    "mongoose": "^5.9.11",
+    "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",

@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mern", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/googlebooks", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -33,7 +33,7 @@ app.get("/api/config", (req, res) => {
 });
 
 app.get("/api/user", (req, res) => {
-  db.User.find()
+  db.Book.find()
     .then((users) => {
       res.json(users);
     })
@@ -42,7 +42,7 @@ app.get("/api/user", (req, res) => {
       res.status(500);
       res.json({
         error: true,
-        message: "No users found",
+        message: "No books found",
       });
     });
 });
