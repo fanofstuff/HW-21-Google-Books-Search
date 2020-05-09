@@ -4,9 +4,9 @@ import Saved from "./pages/Saved";
 import Search from "./pages/Search";
 import Nav from "./components/Nav";
 
-console.log(process.env.REACT_APP_APIKEY);
-console.log(process.env);
-console.log(REACT_APP_APIKEY);
+// console.log(process.env.REACT_APP_APIKEY);
+// console.log(process.env);
+// console.log(REACT_APP_APIKEY);
 
 function App() {
   return (
