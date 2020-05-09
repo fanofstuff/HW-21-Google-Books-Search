@@ -7,7 +7,7 @@ const SavedCard = ({ id, title, authors, description, image, link }) => {
   };
 
   return (
-    <div>
+    <div className="bg-light p-2 m-3">
       <Row>
         <Col size="md-6">
           <h1>{title}</h1>

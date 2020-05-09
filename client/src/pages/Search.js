@@ -1,26 +1,55 @@
 import React, { Component } from "react";
-import { Link, useParams } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import SearchCard from "../components/SearchCard";
 import { Input } from "../components/Form";
-// // When this component mounts, grab the book with the _id of props.match.params.id
-// // e.g. localhost:3000/books/599dcb67f0f16317844583fc
-// const {id} = useParams()
-// useEffect(() => {
-//   API.getBook(id)
-//     .then(res => setBook(res.data))
-//     .catch(err => console.log(err));
-// }, [])
 
 class Search extends Component {
-  render() {
-    function handleInputChange(event) {
-      const { name, value } = event.target;
-      // setFormObject({...formObject, [name]: value})
-    }
+  state = {
+    result: [
+      {
+        volumeInfo: {
+          title: "",
+          authors: [],
+          description: "",
+          imageLinks: {
+            thumbnail: "",
+          },
+          link: "",
+        },
+      },
+    ],
+    search: "",
+  };
 
+  handleInputChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  handleFormSubmit = (event) => {
+    event.preventDefault();
+    this.searchBooks(this.state.search);
+  };
+
+  searchBooks = (query) => {
+    // basically, we make an API call on submit, then this.setState({result: res.data})
+    API.search(query)
+      .then((res) => this.setState({ result: res.data.items }))
+      .catch((err) => console.log(err));
+  };
+
+  componentDidMount() {
+    this.searchBooks("Harry Potter");
+  }
+
+  handleSave = (event) => {
+    console.log(event);
+    // this.saveBook(event)
+  }
+
+  render() {
     return (
       <Container>
         <Row>
@@ -37,16 +66,21 @@ class Search extends Component {
           <Col size="md-12">
             <div className="bg-light pt-3 pb-5 px-2">
               Book Search
-              <hr/>
+              <hr />
               <div>Books</div>
-              <form className="mt-2">
+              <form className="mt-2" onSubmit={this.handleFormSubmit}>
                 <Input
-                  onChange={handleInputChange}
-                  name="title"
-                  placeholder="Title (required)"
+                  onChange={this.handleInputChange}
+                  name="search"
+                  placeholder="Search by Title"
                 />
               </form>
-              <button className="btn btn-primary float-right">Save</button>
+              <button
+                className="btn btn-success float-right"
+                onClick={this.handleFormSubmit}
+              >
+                Search
+              </button>
             </div>
           </Col>
         </Row>
@@ -55,22 +89,18 @@ class Search extends Component {
         <Row>
           <Col size="md-12">
             <div className="bg-light py-3 px-2">
-              Saved Books
-              <div className="bg-light p-2 m-3">
+              Results
+              {this.state.result.map((results, index) => (
                 <SearchCard
-                  key={1}
-                  id={1}
-                  title={"Harry Otter"}
-                  authors={["Wanda", "Carlos de Maye", "JK Simmons"]}
-                  description={
-                    "bgojegoago gsa goas gosad g sgojs dgojsad gojsad gojsad gasojdg saoj ajsh safh asfmh osa hasod hsajod gjow gwra gow gojwe bojw egojE Geog awj gwae go sajaw g weagop asfg arg aospbosa gs gja dgojas g sagoja esgo aweg aeog aosjd gasdmg ms oasf hfoh sdfh dflmh dsfh. bgojegoago gsa goas gosad g sgojs dgojsad gojsad gojsad gasojdg saoj ajsh safh asfmh osa hasod hsajod gjow gwra gow gojwe bojw egojE Geog awj gwae go sajaw g weagop asfg arg aospbosa gs gja dgojas g sagoja esgo aweg aeog aosjd gasdmg ms oasf hfoh sdfh dflmh dsfh. "
-                  }
-                  image={
-                    "https://res.cloudinary.com/teepublic/image/private/s--cvmd4huL--/c_crop,x_10,y_10/c_fit,h_1109/c_crop,g_north_west,h_1260,w_1260,x_-100,y_-76/co_rgb:000000,e_colorize,u_Misc:One%20Pixel%20Gray/c_scale,g_north_west,h_1260,w_1260/fl_layer_apply,g_north_west,x_-100,y_-76/bo_0px_solid_white/t_Resized%20Artwork/c_fit,g_north_west,h_1054,w_1054/co_ffffff,e_outline:53/co_ffffff,e_outline:inner_fill:53/co_bbbbbb,e_outline:3:1000/c_mpad,g_center,h_1260,w_1260/b_rgb:eeeeee/t_watermark_lock/c_limit,f_jpg,h_630,q_90,w_630/v1565176095/production/designs/5537704_0.jpg"
-                  }
-                  link={"https://google.com"}
+                  key={index}
+                  title={results.volumeInfo.title}
+                  authors={results.volumeInfo.authors}
+                  description={results.volumeInfo.description}
+                  image={results.volumeInfo.imageLinks.thumbnail}
+                  link={results.volumeInfo.infoLink}
+                  handleSave={this.handleSave}
                 />
-              </div>
+              ))}
             </div>
           </Col>
         </Row>

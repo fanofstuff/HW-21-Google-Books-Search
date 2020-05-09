@@ -1,20 +1,32 @@
 import React from "react";
 import { Col, Row } from "../Grid";
 
-const SearchCard = ({ id, title, authors, description, image, link }) => {
+const SearchCard = ({ title, authors, description, image, link, handleSave }) => {
   const displayStyle = {
     display: "inline",
   };
 
+
+  function handleSaveButton() {
+    var bookData = {
+        title: {title}, 
+        authors: [{authors}],
+        description: {description},
+        image: {image},
+        link: {link}
+    }
+    handleSave(bookData);
+  }
+
   return (
-    <div>
+    <div className="bg-light p-2 m-3">
       <Row>
         <Col size="md-6">
           <h1>{title}</h1>
-          <h2>Written By: {authors.join(", ")}</h2>
+          <h2>Written By: {authors && authors.join(", ")}</h2>
         </Col>
         <Col size="md-6">
-          <button className="btn btn-primary float-right">Save</button>
+          <button className="btn btn-primary float-right" onClick={handleSaveButton}>Save</button>
           <a href={link} className="btn btn-dark float-right">
             View
           </a>
