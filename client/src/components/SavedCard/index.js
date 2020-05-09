@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Row } from "../Grid";
 
-const Card = ({ id, title, authors, description, image, link }) => {
+const SavedCard = ({ id, title, authors, description, image, link }) => {
   const displayStyle = {
     display: "inline",
   };
@@ -14,8 +14,8 @@ const Card = ({ id, title, authors, description, image, link }) => {
           <h2>Written By: {authors.join(", ")}</h2>
         </Col>
         <Col size="md-6">
-          <button className="btn btn-dark float-right">Save</button>
-          <a href={link} className="btn btn-primary float-right">
+          <button className="btn btn-danger float-right">Delete</button>
+          <a href={link} className="btn btn-dark float-right">
             View
           </a>
         </Col>
@@ -36,4 +36,4 @@ const Card = ({ id, title, authors, description, image, link }) => {
   );
 };
 
-export default Card;
+export default SavedCard;
