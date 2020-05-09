@@ -2,9 +2,6 @@ import axios from "axios";
 
 const BASEURL = "https://www.googleapis.com/books/v1/volumes?q=";
 
-const APIKEY = "AIzaSyDixcHdgBXvDxtMzbhfaYho2KpM6DZ2Uj0";
-
-
 export default {
   // Gets all books
   getAllBooks: function() {
@@ -19,6 +16,6 @@ export default {
     return axios.post("/api/books", bookData);
   }, 
   search: function(query) {
-    return axios.get(BASEURL + query + "&key=" + APIKEY)
+    return axios.get(BASEURL + query + "&key=" + process.env.REACT_APP_APIKEY)
   }
 };
